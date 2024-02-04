@@ -1,5 +1,5 @@
 #first stage
-FROM python:3.11-slim AS Server_sock
+FROM python:3.11-slim AS Server_socket
 
 # http://bugs.python.org/issue19846
 # > В настоящий момент настройка "LANG=C" в Linux *полностью выводит из строя Python 3*, а это плохо.
