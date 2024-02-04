@@ -6,7 +6,7 @@ FROM python:3.11-slim AS Server_socket
 ENV LANG C.UTF-8
 
 WORKDIR /src
-COPY src/requirements.txt requirements.txt
+COPY requirements.txt requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 COPY server.py /src
 EXPOSE 5051
