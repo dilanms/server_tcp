@@ -2,7 +2,7 @@ import socket
 
 HOST = '0.0.0.0'
 #HOST = socket.gethostbyname('socket-server_dns_name')
-PORT = 5052
+PORT = 5051
 
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
