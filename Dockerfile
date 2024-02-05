@@ -11,7 +11,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY server.py /src
 EXPOSE 5051
 EXPOSE 5051/udp
-EXPOSE 9990:9999/udp
+
 
 ENTRYPOINT [ "python" ]
 CMD ["./server.py"]
