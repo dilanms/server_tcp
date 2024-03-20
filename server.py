@@ -1,20 +1,28 @@
-import socket
+import asyncio
 
-HOST = '0.0.0.0'
-#HOST = socket.gethostbyname('socket-server_dns_name')
-PORT = 5051
+async def handle_echo(reader, writer):
+    data = await reader.read(100)
+    message = data.decode()
+    addr = writer.get_extra_info('peername')
 
+    print(f"Received {message!r} from {addr!r}")
 
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-    print("Server Started")
-    s.bind((HOST, PORT))
-    s.listen()
-    conn, addr = s.accept()
-    with conn:
-        print(f"Connected by {addr}")
-        while True:
-            data = conn.recv(1024)
-            print("Client sent: ", data)
-            if not data:
-                break
-            conn.sendall(data)
+    print(f"Send: {message!r}")
+    writer.write(data)
+    await writer.drain()
+
+    print("Close the connection")
+    writer.close()
+    await writer.wait_closed()
+
+async def main():
+    server = await asyncio.start_server(
+        handle_echo, '0.0.0.0', 5051)
+
+    addrs = ', '.join(str(sock.getsockname()) for sock in server.sockets)
+    print(f'Serving on {addrs}')
+
+    async with server:
+        await server.serve_forever()
+
+asyncio.run(main())
