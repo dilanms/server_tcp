@@ -1,5 +1,4 @@
 import socket
-import os
 
 server_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 HOST, PORT = "0.0.0.0", 8081
